@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2026
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WireFrame", "WireFrame\WireFrame.csproj", "{B7A3483F-CC0A-40CE-A3EA-15E07ACF5A87}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B7A3483F-CC0A-40CE-A3EA-15E07ACF5A87}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B7A3483F-CC0A-40CE-A3EA-15E07ACF5A87}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B7A3483F-CC0A-40CE-A3EA-15E07ACF5A87}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B7A3483F-CC0A-40CE-A3EA-15E07ACF5A87}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {EBC27C5D-2884-4B4D-99EB-97A593AD31E2}
+	EndGlobalSection
+EndGlobal
