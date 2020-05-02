@@ -16,6 +16,6 @@ jobs:
     - name: Setup NuGet
       uses: NuGet/setup-nuget@v1.0.2
     - name: Restore NuGet packages
-      run: nuget restore Graph.sln
+      run: nuget restore WireFrame.sln
     - name: Build the Solution
-      run: msbuild Graph.sln
+      run: msbuild WireFrame.sln
