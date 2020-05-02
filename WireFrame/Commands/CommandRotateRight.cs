@@ -1,11 +1,10 @@
-﻿using System;
-using WireFrame.Abstract;
+﻿using InputMgr.Abstract;
 
 namespace WireFrame.Commands
 {
-    class CommandRotateRight : Command
+    class CommandRotateRight<T> : Command<T> where T : Map
     {
-        public override void Execute(Map map)
+        public override void Execute(T map)
         {
         }
     }

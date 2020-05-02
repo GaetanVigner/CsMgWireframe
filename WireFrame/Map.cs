@@ -46,7 +46,18 @@ namespace WireFrame
 
                     if (j != 0)
                     {
-                        spriteBatch.DrawLine(tx, ty, Grid[i, j].Projected.X, Grid[i, j].Projected.Y, Color.White);
+                        Color color;
+                        if (Grid[i, j].Basic.Z < 0)
+                        {
+                            color = Color.Blue;
+                        } else if (Grid[i, j].Basic.Z < 1)
+                        {
+                            color = Color.Green;
+                        } else
+                        {
+                            color = Color.White;
+                        }
+                        spriteBatch.DrawLine(tx, ty, Grid[i, j].Projected.X, Grid[i, j].Projected.Y, color);
                     }
                     tx = Grid[i, j].Projected.X;
                     ty = Grid[i, j].Projected.Y;
@@ -64,7 +75,20 @@ namespace WireFrame
 
                     if (i != 0)
                     {
-                        spriteBatch.DrawLine(tx, ty, Grid[i, j].Projected.X, Grid[i, j].Projected.Y, Color.Purple);
+                        Color color;
+                        if (Grid[i, j].Basic.Z < 0)
+                        {
+                            color = Color.Blue;
+                        }
+                        else if (Grid[i, j].Basic.Z < 1)
+                        {
+                            color = Color.Green;
+                        }
+                        else
+                        {
+                            color = Color.White;
+                        }
+                        spriteBatch.DrawLine(tx, ty, Grid[i, j].Projected.X, Grid[i, j].Projected.Y, color);
                     }
                     tx = Grid[i, j].Projected.X;
                     ty = Grid[i, j].Projected.Y;
@@ -76,7 +100,7 @@ namespace WireFrame
         public void Left()
         {
             var tmp = Ofset;
-            tmp.X -= 10;
+            tmp.X += 10;
             Ofset = tmp;
             change = true;
         }
@@ -84,7 +108,7 @@ namespace WireFrame
         public void Right()
         {
             var tmp = Ofset;
-            tmp.X += 10;
+            tmp.X -= 10;
             Ofset = tmp;
             change = true;
         }

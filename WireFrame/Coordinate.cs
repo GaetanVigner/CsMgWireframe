@@ -17,6 +17,13 @@ namespace WireFrame
             Basic = new Vector3(x, y, z);
         }
 
+        [Newtonsoft.Json.JsonConstructor]
+        public Coordinate(Vector3 basic, Vector2 projected)
+        {
+            Basic = basic;
+            Projected = projected;
+        }
+
         public Coordinate(Vector3 point)
         {
             Basic = point;

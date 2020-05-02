@@ -1,11 +1,11 @@
-﻿using System;
-using WireFrame.Abstract;
+﻿using InputMgr.Abstract;
+using System;
 
 namespace WireFrame.Commands
 {
-    class CommandRight : Command
+    class CommandRight<T> : Command<T> where T : Map
     {
-        public override void Execute(Map map)
+        public override void Execute(T map)
         {
             Console.WriteLine("Right");
             map.Right();

@@ -1,8 +1,13 @@
-﻿using Microsoft.Xna.Framework;
+﻿using InputMgr;
+using InputMgr.Abstract;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Newtonsoft.Json;
 using System.Collections.Generic;
-using WireFrame.Abstract;
+using System.IO;
+using System.Linq;
+using System.Text;
 using WireFrame.Commands;
 
 namespace WireFrame
@@ -14,7 +19,7 @@ namespace WireFrame
     {
         readonly GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        InputManager inputManager;
+        InputManager<Map> inputManager;
         List<Map> maps;
         
         public Game1()
@@ -32,23 +37,19 @@ namespace WireFrame
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            maps = new List<Map>
-            {
-                new Map(20, 20)
-            };
 
             //init of the keys
-            var kdico = new Dictionary<Keys, Command>
+            var kdico = new Dictionary<Keys, Command<Map>>
             {
-                { Keys.Q, new CommandLeft() },
-                { Keys.D, new CommandRight() },
-                { Keys.Z, new CommandUp() },
-                { Keys.S, new CommandDown() },
-                { Keys.A, new CommandRotateLeft() },
-                { Keys.E, new CommandRotateRight() }
+                { Keys.Q, new CommandLeft<Map>() },
+                { Keys.D, new CommandRight<Map>() },
+                { Keys.Z, new CommandUp<Map>() },
+                { Keys.S, new CommandDown<Map>() },
+                { Keys.A, new CommandRotateLeft<Map>() },
+                { Keys.E, new CommandRotateRight<Map>() }
             };
-            var gdico = new Dictionary<Buttons, Command>();
-            inputManager = new InputManager(kdico, gdico);
+            var gdico = new Dictionary<Buttons, Command<Map>>();
+            inputManager = new InputManager<Map>(kdico, gdico);
             graphics.HardwareModeSwitch = true;
             //end of the key init
             base.Initialize();
@@ -63,7 +64,24 @@ namespace WireFrame
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            // TODO: use this.Content to load your game content here
+            var sb = new StringBuilder();
+            string tmp;
+            using (StreamReader sr = new StreamReader("map.json"))
+            {
+                while ((tmp = sr.ReadLine()) != null)
+                {
+                    sb.Append(tmp);
+                }
+            }
+
+            maps = JsonConvert.DeserializeObject<List<Map>>(sb.ToString());
+            if (maps == null || (maps != null && maps.Count == 0))
+            {
+                maps = new List<Map>
+                {
+                    new Map(20, 20)
+                };
+            }
         }
 
         /// <summary>
@@ -72,7 +90,11 @@ namespace WireFrame
         /// </summary>
         protected override void UnloadContent()
         {
-            // TODO: Unload any non ContentManager content here
+            string output = JsonConvert.SerializeObject(maps);
+            using (StreamWriter sw = new StreamWriter("map.json"))
+            {
+                sw.WriteLine(output);
+            }
         }
 
         /// <summary>
@@ -84,7 +106,7 @@ namespace WireFrame
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-            inputManager.HandleInput(maps);
+            inputManager.HandleInput(maps.FirstOrDefault());
             foreach(var map in maps)
             {
                 map.Update();
